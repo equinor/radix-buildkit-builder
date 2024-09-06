@@ -1,0 +1,16 @@
+{
+  "auths": {
+    "docker.io": {
+      "username": "privatedockeruser",
+      "password": "privatedockerpwd",
+      "email": "",
+      "auth": "fakeprivatedockerauth"
+    },
+    "ghcr.io": {
+      "username": "privateghcruser",
+      "password": "privateghcrpwd",
+      "email": "",
+      "auth": "fakeprivateghcrauth"
+    }
+  }
+}

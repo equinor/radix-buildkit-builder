@@ -1,0 +1,14 @@
+{
+  "auths": {
+    "docker.io": {
+      "username": "defaultdockeruser",
+      "password": "defaultdockeriopwd",
+      "auth": "fakedefaultdockerauth"
+    },
+    "my.azurecr.io": {
+      "username": "defaultazurecruser",
+      "password": "defaultazurecrpwd",
+      "auth": "fakedefaultazurecrauth"
+    }
+  }
+}
