@@ -10,3 +10,5 @@ Required writable directories:
 
 
 docker buildx build --tag nilsgustavstrabo/radix-buildkit-builder --platform=linux/amd64,linux/arm64 --push .
+
+# https://www.atatus.com/blog/bash-scripting/

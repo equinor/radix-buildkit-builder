@@ -9,10 +9,6 @@ target_environments=""
 secrets=()
 auth_files=()
 
-# https://www.atatus.com/blog/bash-scripting/
-# https://unix.stackexchange.com/questions/444946/how-can-we-run-a-command-stored-in-a-variable
-
-
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --auth-file)
@@ -109,8 +105,11 @@ if [ ! -d "/var/tmp" ]; then
   mkdir /var/tmp
 fi
 
-target_auth_file="/home/build/auth.json" # Docker auth file where buildah will read and store credentials, ref https://github.com/containers/buildah/blob/main/docs/buildah-login.1.md#options
+target_auth_file="/home/build/auth.json"
 
+# Combines multiple input auth-files into one by merging them with jq
+# Ref slurp: https://jqlang.github.io/jq/manual/#invoking-jq
+# Ref object addition: https://jqlang.github.io/jq/manual/#addition
 len=${#auth_files[@]}
 if [[ $len -gt 0 ]]; then
   jq_filter=""
@@ -119,7 +118,7 @@ if [[ $len -gt 0 ]]; then
   for (( i=0; i<$len; i++ ));
   do
     if [[ $i -gt 0 ]]; then
-      jq_filter+=" * "
+      jq_filter+=" + "
     fi
 
     jq_filter+=".[${i}].auths"
@@ -127,7 +126,7 @@ if [[ $len -gt 0 ]]; then
   done
 
   jq_filter+="| {\"auths\": .}"
-  jq -s "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
+  jq --slurp "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
 fi
 
 buildah login \
@@ -180,7 +179,6 @@ if [[ $push -eq 1 ]]; then
     )
 fi
 
-# expand the array, run the command
 buildah build "${build_args[@]}" "${context}"
 
 if [[ $push -eq 1 ]]; then
