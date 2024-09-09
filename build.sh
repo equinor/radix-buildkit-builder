@@ -7,10 +7,18 @@ git_commit_hash=""
 git_tags=""
 target_environments=""
 secrets=()
+auth_files=()
 
 # https://www.atatus.com/blog/bash-scripting/
+# https://unix.stackexchange.com/questions/444946/how-can-we-run-a-command-stored-in-a-variable
+
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --auth-file)
+      auth_files+=("$2")
+      shift
+      ;;         
     --registry)
       registry="$2"
       shift
@@ -73,12 +81,20 @@ while [[ $# -gt 0 ]]; do
       target_environments="$2"
       shift
       ;;
-    --secrets)
-      secrets+=(${2//,/ })
+    --secret)
+      secrets+=("$2")
       shift
       ;;
     --secrets-path)
       secrets_path="$2"
+      shift
+      ;;
+    --dockerfile)
+      dockerfile="$2"
+      shift
+      ;;      
+    --context)
+      context="$2"
       shift
       ;;
     *)
@@ -89,25 +105,52 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-# https://unix.stackexchange.com/questions/444946/how-can-we-run-a-command-stored-in-a-variable
+if [ ! -d "/var/tmp" ]; then
+  mkdir /var/tmp
+fi
 
-echo buildah login \
+target_auth_file="/home/build/auth.json" # Docker auth file where buildah will read and store credentials, ref https://github.com/containers/buildah/blob/main/docs/buildah-login.1.md#options
+
+len=${#auth_files[@]}
+if [[ $len -gt 0 ]]; then
+  jq_filter=""
+  jq_source_files=()
+  
+  for (( i=0; i<$len; i++ ));
+  do
+    if [[ $i -gt 0 ]]; then
+      jq_filter+=" * "
+    fi
+
+    jq_filter+=".[${i}].auths"
+    jq_source_files+=("${auth_files[$i]}")
+  done
+
+  jq_filter+="| {\"auths\": .}"
+  jq -s "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
+fi
+
+buildah login \
+    --authfile "${target_auth_file}" \
     --username "${registry_username}" \
     --password "${registry_password}" \
     ${registry}
 
 if [[ $use_cache -eq 1 ]]; then
-    echo buildah login \
-        --user-name "${cache_registry_username}" \
+    buildah login \
+        --authfile "${target_auth_file}" \
+        --username "${cache_registry_username}" \
         --password "${cache_registry_password}" \
         ${cache_registry}
 fi
 
 build_args=(
+    --authfile "${target_auth_file}"
     --storage-driver=overlay
     --isolation=chroot
     --jobs 0
     --ulimit nofile=4096:4096
+    --file "${context}/${dockerfile}"
     --build-arg RADIX_GIT_COMMIT_HASH="${git_commit_hash}"
     --build-arg RADIX_GIT_TAGS="${git_tags}"
     --build-arg BRANCH="${branch}"
@@ -138,10 +181,14 @@ if [[ $push -eq 1 ]]; then
 fi
 
 # expand the array, run the command
-echo buildah build "${build_args[@]}"
+buildah build "${build_args[@]}" "${context}"
 
 if [[ $push -eq 1 ]]; then
-    echo buildah push --storage-driver=overlay "${tag}"
-    echo buildah push --storage-driver=overlay "${cluster_type_tag}"
-    echo buildah push --storage-driver=overlay "${cluster_name_tag}"
+    push_args=(
+        --authfile "${target_auth_file}"
+        --storage-driver=overlay
+    )
+    buildah push "${push_args[@]}" "${tag}"
+    buildah push "${push_args[@]}" "${cluster_type_tag}"
+    buildah push "${push_args[@]}" "${cluster_name_tag}"
 fi
