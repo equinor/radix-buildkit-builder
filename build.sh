@@ -11,10 +11,6 @@ auth_files=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --auth-file)
-      auth_files+=("$2")
-      shift
-      ;;         
     --registry)
       registry="$2"
       shift
@@ -46,9 +42,8 @@ while [[ $# -gt 0 ]]; do
       cache_repository="$2"
       shift
       ;;
-    --branch)
-      branch="$2"
-      shift
+    --push)
+      push=1
       ;;
     --tag)
       tag="$2"
@@ -62,21 +57,6 @@ while [[ $# -gt 0 ]]; do
       cluster_name_tag="$2"
       shift
       ;;
-    --push)
-      push=1
-      ;;
-    --git-commit-hash)
-      git_commit_hash="$2"
-      shift
-      ;;
-    --git-tags)
-      git_tags="$2"
-      shift
-      ;;
-    --target-environments)
-      target_environments="$2"
-      shift
-      ;;
     --secret)
       secrets+=("$2")
       shift
@@ -88,9 +68,29 @@ while [[ $# -gt 0 ]]; do
     --dockerfile)
       dockerfile="$2"
       shift
-      ;;      
+      ;;
     --context)
       context="$2"
+      shift
+      ;;
+    --auth-file)
+      auth_files+=("$2")
+      shift
+      ;;
+    --branch)
+      branch="$2"
+      shift
+      ;;
+    --git-commit-hash)
+      git_commit_hash="$2"
+      shift
+      ;;
+    --git-tags)
+      git_tags="$2"
+      shift
+      ;;
+    --target-environments)
+      target_environments="$2"
       shift
       ;;
     *)
