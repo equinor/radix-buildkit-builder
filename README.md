@@ -1,3 +1,5 @@
+[![Deploy Status](https://github.com/equinor/radix-buildkit-builder/actions/workflows/build-push.yml/badge.svg)](https://github.com/equinor/radix-buildkit-builder/actions/workflows/build-push.yml)
+
 # radix-buildkit-builder
 
 `radix-buildkit-builder` is used by the Radix platform to build container images for hosted applications which have enabled `useBuildKit`.
