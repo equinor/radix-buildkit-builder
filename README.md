@@ -6,7 +6,7 @@
 
 ## Configuration
 
-** Command line arguments **
+**Command line arguments**
 
 | Name                      | Required                        | Description                                                                                                                              | 
 | ------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -31,8 +31,6 @@
 | --git-commit-hash         | Yes                             | Used as build argument named RADIX_GIT_COMMIT_HASH                                                                                       |
 | --git-tags                | Yes                             | Used as build argument named RADIX_GIT_TAGS                                                                                              |
 | --target-environments     | Yes                             | Used as build argument named TARGET_ENVIRONMENTS                                                                                         |
-
-* --auth-file
 
 ## Running with read-only root file system
 
