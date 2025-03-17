@@ -22,3 +22,14 @@ build-image:
 push-image:
 	az acr login --name $(ACR)
 	docker buildx build -t $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(VERSION) -t $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(BRANCH)-$(VERSION) -t $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(TAG) --platform linux/arm64,linux/amd64 -f Dockerfile --push .
+
+test:
+	docker build -t $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(BRANCH)-$(VERSION) -f Dockerfile . ;
+	docker run --privileged -v $$(pwd):/context -it --rm $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(BRANCH)-$(VERSION) \
+		--registry "docker.io" \
+        --registry-username "test" \
+        --registry-password "test" \
+        --tag "test" \
+        --dockerfile "test.Dockerfile" \
+        --context "/context" \
+        --branch ""

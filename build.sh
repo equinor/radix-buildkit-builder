@@ -6,6 +6,7 @@ use_cache=0
 git_commit_hash=""
 git_tags=""
 target_environments=""
+registry=""
 secrets=()
 auth_files=()
 
@@ -106,6 +107,7 @@ if [ ! -d "/var/tmp" ]; then
 fi
 
 target_auth_file="/home/build/auth.json"
+echo "{}" > $target_auth_file
 
 # Combines multiple input auth-files into one by merging them with jq
 # Ref slurp: https://jqlang.github.io/jq/manual/#invoking-jq
@@ -114,7 +116,7 @@ len=${#auth_files[@]}
 if [[ $len -gt 0 ]]; then
   jq_filter=""
   jq_source_files=()
-  
+
   for (( i=0; i<$len; i++ ));
   do
     if [[ $i -gt 0 ]]; then
@@ -129,11 +131,13 @@ if [[ $len -gt 0 ]]; then
   jq --slurp "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
 fi
 
-buildah login \
-    --authfile "${target_auth_file}" \
-    --username "${registry_username}" \
-    --password "${registry_password}" \
-    ${registry}
+if [[ $registry -gt 0 ]]; then
+  buildah login \
+      --authfile "${target_auth_file}" \
+      --username "${registry_username}" \
+      --password "${registry_password}" \
+      ${registry}
+fi
 
 if [[ $use_cache -eq 1 ]]; then
     buildah login \
