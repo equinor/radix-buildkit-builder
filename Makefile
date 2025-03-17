@@ -26,9 +26,6 @@ push-image:
 test:
 	docker build -t $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(BRANCH)-$(VERSION) -f Dockerfile . ;
 	docker run --privileged -v $$(pwd):/context -it --rm $(CONTAINER_REGISTRY)/radix-buildkit-builder:$(BRANCH)-$(VERSION) \
-		--registry "docker.io" \
-        --registry-username "test" \
-        --registry-password "test" \
         --tag "test" \
         --dockerfile "test.Dockerfile" \
         --context "/context" \
