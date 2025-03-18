@@ -106,7 +106,6 @@ if [ ! -d "/var/tmp" ]; then
 fi
 
 target_auth_file="/home/build/auth.json"
-echo "{}" > $target_auth_file
 
 # Combines multiple input auth-files into one by merging them with jq
 # Ref slurp: https://jqlang.github.io/jq/manual/#invoking-jq
