@@ -6,7 +6,6 @@ use_cache=0
 git_commit_hash=""
 git_tags=""
 target_environments=""
-registry=""
 secrets=()
 auth_files=()
 
@@ -131,13 +130,11 @@ if [[ $len -gt 0 ]]; then
   jq --slurp "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
 fi
 
-if [[ -n $registry ]]; then
-  buildah login \
-      --authfile "${target_auth_file}" \
-      --username "${registry_username}" \
-      --password "${registry_password}" \
-      ${registry}
-fi
+buildah login \
+    --authfile "${target_auth_file}" \
+    --username "${registry_username}" \
+    --password "${registry_password}" \
+    ${registry}
 
 if [[ $use_cache -eq 1 ]]; then
     buildah login \
