@@ -131,7 +131,7 @@ if [[ $len -gt 0 ]]; then
   jq --slurp "${jq_filter}" "${jq_source_files[@]}" > $target_auth_file
 fi
 
-if [[ $registry -gt 0 ]]; then
+if [[ -n $registry ]]; then
   buildah login \
       --authfile "${target_auth_file}" \
       --username "${registry_username}" \
