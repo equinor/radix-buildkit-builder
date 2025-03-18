@@ -114,7 +114,7 @@ len=${#auth_files[@]}
 if [[ $len -gt 0 ]]; then
   jq_filter=""
   jq_source_files=()
-  
+
   for (( i=0; i<$len; i++ ));
   do
     if [[ $i -gt 0 ]]; then
