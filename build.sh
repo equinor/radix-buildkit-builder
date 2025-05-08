@@ -173,11 +173,11 @@ if [[ $use_cache -eq 1 ]]; then
         --cache-to="${cache_repository}"
     )
 fi
-if [[ $refresh_cache -eq 1 ]]; then
+if [[ $refresh_cache -eq 1 || $use_cache -eq 0 ]]; then
   build_args+=(
       --no-cache
   )
-elif [[ $use_cache -eq 1 ]]; then
+else
   build_args+=(
       --cache-from="${cache_repository}"
   )
