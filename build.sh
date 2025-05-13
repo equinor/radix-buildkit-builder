@@ -167,17 +167,14 @@ do
     )
 done
 
-if [[ $use_cache -eq 1 ]]; then
+if [[ $use_cache -eq 1 || $refresh_cache -eq 1 ]]; then
     build_args+=(
         --layers
         --cache-to="${cache_repository}"
     )
 fi
-if [[ $refresh_cache -eq 1 || $use_cache -eq 0 ]]; then
-  build_args+=(
-      --no-cache
-  )
-else
+
+if [[ $use_cache -eq 1 && $refresh_cache -eq 0 ]]; then
   build_args+=(
       --cache-from="${cache_repository}"
   )
