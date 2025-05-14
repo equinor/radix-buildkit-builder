@@ -139,7 +139,7 @@ buildah login \
     --password "${registry_password}" \
     ${registry}
 
-if [[ $use_cache -eq 1 ]]; then
+if [[ $use_cache -eq 1 || $refresh_cache -eq 1 ]]; then
     buildah login \
         --authfile "${target_auth_file}" \
         --username "${cache_registry_username}" \
