@@ -3,6 +3,7 @@ set -e -u -o pipefail
 
 push=0
 use_cache=0
+refresh_cache=0
 git_commit_hash=""
 git_tags=""
 target_environments=""
@@ -25,6 +26,9 @@ while [[ $# -gt 0 ]]; do
       ;;
     --use-cache)
       use_cache=1
+      ;;
+    --refresh-cache)
+      refresh_cache=1
       ;;
     --cache-registry)
       cache_registry="$2"
@@ -135,7 +139,7 @@ buildah login \
     --password "${registry_password}" \
     ${registry}
 
-if [[ $use_cache -eq 1 ]]; then
+if [[ $use_cache -eq 1 || $refresh_cache -eq 1 ]]; then
     buildah login \
         --authfile "${target_auth_file}" \
         --username "${cache_registry_username}" \
@@ -163,12 +167,17 @@ do
     )
 done
 
-if [[ $use_cache -eq 1 ]]; then
+if [[ $use_cache -eq 1 || $refresh_cache -eq 1 ]]; then
     build_args+=(
         --layers
         --cache-to="${cache_repository}"
-        --cache-from="${cache_repository}"
     )
+fi
+
+if [[ $use_cache -eq 1 && $refresh_cache -eq 0 ]]; then
+  build_args+=(
+      --cache-from="${cache_repository}"
+  )
 fi
 
 if [[ $push -eq 1 ]]; then
