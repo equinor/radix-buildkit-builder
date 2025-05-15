@@ -9,11 +9,12 @@
 **Command line arguments**
 
 | Name                      | Required                        | Description                                                                                                                              | 
-| ------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------------- | ------------------------------- |------------------------------------------------------------------------------------------------------------------------------------------|
 | --registry                | Yes                             | Name of container registry used in --tag                                                                                                 |
 | --registry-username       | Yes                             | Username for login to --registry                                                                                                         |
 | --registry-password       | Yes                             | Password for --registry-username                                                                                                         |
 | --use-cache               | No                              | Enabled caching of image layers                                                                                                          |
+| --refresh-cache           | No                              | Refresh caches of image layers                                                                                                           |
 | --cache-registry          | When --use-cache flag set       | Name of container registry for cache layers                                                                                              |
 | --cache-registry-username | When --use-cache flag set       | Username for login to --cache-registry                                                                                                   |
 | --cache-registry-password | When --use-cache flag set       | Password for --cache-registry-username                                                                                                   |
