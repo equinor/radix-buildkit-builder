@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 
 ## New Contributors ❤️
 
+* @github-actions[bot] made their first contribution in [#16](https://github.com/equinor/radix-buildkit-builder/pull/16)
 * @nilsgstrabo made their first contribution in [#14](https://github.com/equinor/radix-buildkit-builder/pull/14)
 * @satr made their first contribution in [#10](https://github.com/equinor/radix-buildkit-builder/pull/10)
 * @Richard87 made their first contribution in [#7](https://github.com/equinor/radix-buildkit-builder/pull/7)
