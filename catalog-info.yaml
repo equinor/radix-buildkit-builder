@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: radix-buildkit-builder
+  annotations:
+    github.com/project-slug: equinor/radix-buildkit-builder
+spec:
+  type: other
+  lifecycle: unknown
+  owner: omnia-radix
