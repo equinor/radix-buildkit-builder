@@ -2,11 +2,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: radix-buildkit-builder
+  title: Radix Buildkit Builder
   description: "Radix buildkit builder for build container images"
   annotations:
     github.com/project-slug: equinor/radix-buildkit-builder
 spec:
   type: service
   lifecycle: production
-  owner: omnia-radix
-  system: Radix
+  owner: team-radix
+  system: system:default/Radix
