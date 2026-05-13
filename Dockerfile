@@ -1,6 +1,6 @@
 FROM ghcr.io/jqlang/jq:1.7.1 AS jq
 
-FROM quay.io/buildah/stable:v1.43.1 AS buildah
+FROM quay.io/buildah/stable:v1.39.2 AS buildah
 
 RUN rm -f /etc/containers/registries.conf.d/000-shortnames.conf
 
