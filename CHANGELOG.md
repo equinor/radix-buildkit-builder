@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1](https://github.com/equinor/radix-buildkit-builder/compare/v1.0.0..v1.0.1) - 2026-05-13
+
+### 🐛 Bug Fixes
+
+- Update buildah version (#25) - ([b2835e3](https://github.com/equinor/radix-buildkit-builder/commit/b2835e3cc223f7ef4080dc04d7c7cc3e78897824)) by @jacobsolbergholm in [#25](https://github.com/equinor/radix-buildkit-builder/pull/25)
+
+
+### 📚 Documentation
+
+- Add catalog-info.yaml config file (#20) - ([e947927](https://github.com/equinor/radix-buildkit-builder/commit/e9479275cb6854ce210b996333f700425330a96f)) by @emirgens in [#20](https://github.com/equinor/radix-buildkit-builder/pull/20)
+
+- Update catalog-info.yaml (#21) - ([78cbf96](https://github.com/equinor/radix-buildkit-builder/commit/78cbf96f1a2e61a272229a6b00db126e3d4a51f1)) by @emirgens in [#21](https://github.com/equinor/radix-buildkit-builder/pull/21)
+
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Update github workflows to latest version and pin to sha - ([92459bd](https://github.com/equinor/radix-buildkit-builder/commit/92459bd4d78e71ac97275da518710386b9c0e170)) by @sveinpj in [#22](https://github.com/equinor/radix-buildkit-builder/pull/22)
+
+- Delete deprecated build-push workflow - ([f7289b8](https://github.com/equinor/radix-buildkit-builder/commit/f7289b82bf942b76ddd9faa20781dcedba455325)) by @nilsgstrabo in [#18](https://github.com/equinor/radix-buildkit-builder/pull/18)
+
+- Update buildah version (#23) - ([9543da0](https://github.com/equinor/radix-buildkit-builder/commit/9543da0e20b6cfab2f6c5c64cf10475ffa02f8fb)) by @jacobsolbergholm in [#23](https://github.com/equinor/radix-buildkit-builder/pull/23)
+
+- Revert "chore: Update buildah version (#23)" (#24) - ([1ccbaa1](https://github.com/equinor/radix-buildkit-builder/commit/1ccbaa1dc428e915d4de8603d49fd1f6d694a7fa)) by @jacobsolbergholm in [#24](https://github.com/equinor/radix-buildkit-builder/pull/24)
+
+
+## New Contributors ❤️
+
+* @jacobsolbergholm made their first contribution in [#25](https://github.com/equinor/radix-buildkit-builder/pull/25)
+* @sveinpj made their first contribution in [#22](https://github.com/equinor/radix-buildkit-builder/pull/22)
+* @emirgens made their first contribution in [#21](https://github.com/equinor/radix-buildkit-builder/pull/21)
 ## [1.0.0] - 2025-09-08
 
 ### 🚀 Features
@@ -13,6 +43,7 @@ All notable changes to this project will be documented in this file.
 
 ## New Contributors ❤️
 
+* @github-actions[bot] made their first contribution in [#16](https://github.com/equinor/radix-buildkit-builder/pull/16)
 * @nilsgstrabo made their first contribution in [#14](https://github.com/equinor/radix-buildkit-builder/pull/14)
 * @satr made their first contribution in [#10](https://github.com/equinor/radix-buildkit-builder/pull/10)
 * @Richard87 made their first contribution in [#7](https://github.com/equinor/radix-buildkit-builder/pull/7)
